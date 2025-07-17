@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Revenue Aditya | Premium Earning</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="description" content="Earning Apps, Crypto Tips, and Online Tricks - All in one place!">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        /* --- Main Page Styles --- */
+        :root {
+            --bg-primary: #101010;
+            --bg-secondary: #1C1C1E;
+            --bg-tertiary: #2C2C2E;
+            --text-primary: #EAEAEA;
+            --text-secondary: #A0A0A0;
+            --accent-primary: #0A84FF;
+            --accent-secondary: #30D158;
+            --accent-error: #FF453A;
+            --font-main: 'Inter', sans-serif;
+            --font-mono: 'Roboto Mono', monospace;
+            --shadow-color: rgba(0, 0, 0, 0.25);
+            --border-radius: 16px;
+        }
+
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes modal-pop-in { from { opacity: 0; transform: translate(-50%, -48%) scale(0.95); } to { opacity: 1; transform: translate(-50%, -50%) scale(1); } }
+
+        body {
+            margin: 0;
+            font-family: var(--font-main);
+            background-color: var(--bg-primary);
+            color: var(--text-secondary);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+        }
+
+        .background-gradient {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
+            background: radial-gradient(circle at 15% 25%, rgba(10, 132, 255, 0.1), transparent 40%),
+                        radial-gradient(circle at 85% 75%, rgba(48, 209, 88, 0.1), transparent 40%);
+        }
+
+        /* --- Header & Search Bar Styles --- */
+        .site-header {
+            padding: 20px;
+            background: rgba(28, 28, 30, 0.7);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--bg-tertiary);
+            animation: fadeInDown 0.8s ease-out;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            transition: padding 0.4s ease;
+        }
+
+        #header-content {
+            text-align: center;
+            transition: all 0.4s ease;
+            max-height: 100px;
+        }
+        
+        .brand-logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: all 0.4s ease;
+        }
+
+        .brand-logo img {
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+            transition: all 0.4s ease;
+        }
+        
+        .header-subtitle {
+            font-size: 15px;
+            color: var(--text-secondary);
+            margin: 8px 0 20px 0;
+            transition: all 0.4s ease;
+            max-height: 25px;
+            overflow: hidden;
+        }
+
+        .search-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            transition: all 0.4s ease;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+            pointer-events: none;
+            transition: all 0.4s ease;
+        }
+        
+        #searchInput {
+            width: 100%;
+            padding: 15px 20px 15px 50px;
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--bg-tertiary);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 16px;
+            outline: none;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+            display: block;
+        }
+        
+        #searchInput:focus {
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 4px rgba(10, 132, 255, 0.2);
+        }
+
+        #cancelSearchBtn {
+            background: none;
+            border: none;
+            color: var(--accent-primary);
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 10px;
+            margin-left: 10px;
+            display: none;
+            transition: opacity 0.3s ease;
+        }
+        
+        .search-active #header-content {
+            opacity: 0;
+            visibility: hidden;
+            max-height: 0;
+            margin: 0;
+        }
+        .search-active #cancelSearchBtn {
+            display: block;
+        }
+
+        .site-header.scrolled:not(.search-active) {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+        .site-header.scrolled:not(.search-active) #header-content { text-align: left; }
+        .site-header.scrolled:not(.search-active) .header-subtitle { opacity: 0; visibility: hidden; max-height: 0; margin: 0; }
+        .site-header.scrolled:not(.search-active) .search-container { width: auto; max-width: none; }
+        .site-header.scrolled:not(.search-active) #searchInput { display: none; }
+        .site-header.scrolled:not(.search-active) .search-icon { position: static; transform: none; pointer-events: auto; cursor: pointer; }
+
+        .container {
+            display: flex; flex-wrap: wrap; justify-content: center;
+            gap: 30px; padding: 30px 20px 50px 20px; max-width: 1200px; margin: 0 auto;
+        }
+        
+        .card {
+            background: rgba(28, 28, 30, 0.6); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            padding: 30px; border-radius: var(--border-radius); border: 1px solid var(--bg-tertiary);
+            display: flex; flex-direction: column; justify-content: space-between;
+            box-shadow: 0 10px 30px var(--shadow-color);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+            position: relative; overflow: hidden; opacity: 0; animation: fadeInUp 0.5s ease-out forwards;
+            width: 320px;
+        }
+
+        .card:nth-child(1) { animation-delay: 0.1s; }
+        .card:nth-child(2) { animation-delay: 0.2s; }
+        .card:nth-child(3) { animation-delay: 0.3s; }
+        .card:nth-child(4) { animation-delay: 0.1s; }
+        .card:nth-child(5) { animation-delay: 0.2s; }
+        .card:nth-child(6) { animation-delay: 0.3s; }
+        .card:nth-child(7) { animation-delay: 0.4s; }
+        .card:nth-child(8) { animation-delay: 0.5s; }
+        
+        .card:hover { transform: translateY(-10px) scale(1.02); box-shadow: 0 20px 40px var(--shadow-color); border-color: rgba(10, 132, 255, 0.5); }
+        .card h2 { color: var(--text-primary); font-size: 22px; font-weight: 600; margin: 0 0 15px 0; }
+        .card p { font-size: 16px; line-height: 1.6; color: var(--text-secondary); flex-grow: 1; }
+
+        .no-results {
+            display: none;
+            text-align: center;
+            padding: 50px 20px;
+            color: var(--text-secondary);
+            width: 100%;
+        }
+        .no-results h2 {
+            color: var(--text-primary);
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .no-results p { font-size: 16px; }
+
+        .btn {
+            background: var(--accent-primary); color: #fff; padding: 14px 24px; border: none; border-radius: 10px;
+            font-weight: 600; font-size: 15px; cursor: pointer; text-decoration: none; text-align: center;
+            transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+            position: relative; display: block; margin-top: 20px;
+        }
+        .btn:hover { background-color: #0077E0; transform: translateY(-3px); box-shadow: 0 8px 20px rgba(10, 132, 255, 0.3); }
+        .btn:active { transform: translateY(0px) scale(0.98); }
+        .btn-secondary { background: var(--bg-tertiary); color: var(--text-primary); }
+        .btn-secondary:hover { background: #3a3a3c; box-shadow: none; }
+        
+        .dialog-box, .code-modal {
+            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            background: var(--bg-secondary); padding: 35px; border-radius: var(--border-radius);
+            color: var(--text-primary); width: 90%; max-width: 380px; text-align: center;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.5); z-index: 10000; display: none;
+            border: 1px solid var(--bg-tertiary); animation: modal-pop-in 0.4s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+        }
+        .dialog-box h3, .code-modal h2 { margin: 0 0 15px; font-size: 24px; font-weight: 600; }
+        .dialog-box h3.success { color: var(--accent-secondary); }
+        .dialog-box h3.error { color: var(--accent-error); }
+        .dialog-box p { font-size: 16px; color: var(--text-secondary); line-height: 1.6; }
+        .code-modal input {
+            width: 100%; padding: 15px; font-size: 16px; border-radius: 10px; border: 1px solid var(--bg-tertiary);
+            margin: 25px 0; background-color: var(--bg-primary); color: var(--text-primary); outline: none;
+            box-sizing: border-box; transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            font-family: var(--font-mono); text-align: center;
+        }
+        .code-modal input:focus { border-color: var(--accent-primary); box-shadow: 0 0 0 4px rgba(10, 132, 255, 0.2); }
+        .code-modal .btn { width: 100%; }
+
+        .overlay {
+            position: fixed; top: 0; left: 0; height: 100%; width: 100%;
+            background: rgba(10, 10, 10, 0.7); backdrop-filter: blur(8px); z-index: 9999;
+            display: none; opacity: 0; transition: opacity 0.3s ease;
+        }
+        .overlay.visible { display: block; opacity: 1; }
+
+        footer {
+            color: var(--text-secondary); margin-top: 80px; padding: 30px; font-size: 14px;
+            text-align: center; border-top: 1px solid var(--bg-tertiary);
+        }
+
+        .watch-now-modal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: var(--bg-primary);
+            z-index: 11000;
+            overflow-y: auto; color: var(--text-primary);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+        }
+        .watch-now-modal.visible {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.3s ease;
+        }
+        .watch-now-modal .main-container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        .watch-now-modal .modal-header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--bg-tertiary);
+            margin-bottom: 30px;
+        }
+        .watch-now-modal .modal-title {
+            font-size: 22px; font-weight: 600;
+            display: flex; align-items: center; gap: 12px;
+        }
+        .watch-now-modal .modal-title img { height: 30px; width: 30px; border-radius: 50%; }
+        .watch-now-modal .close-button {
+            background: var(--bg-tertiary); color: var(--text-secondary); border: none;
+            height: 36px; width: 36px; border-radius: 50%;
+            font-size: 24px; line-height: 36px; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.3s ease;
+        }
+        .watch-now-modal .close-button:hover { background: var(--accent-error); color: white; }
+        .watch-now-modal .page-header { margin-bottom: 30px; text-align: center; }
+        .watch-now-modal .page-header h1 { font-size: 28px; color: var(--text-primary); margin-bottom: 10px; font-weight: 700; }
+        .watch-now-modal .page-header p { font-size: 16px; color: var(--text-secondary); line-height: 1.6; max-width: 600px; margin: 0 auto; }
+        .watch-now-modal .course-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+        .watch-now-modal .course-card {
+            background: var(--bg-secondary); border: 1px solid var(--bg-tertiary);
+            border-radius: var(--border-radius); overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+        .watch-now-modal .course-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            border-color: var(--accent-primary);
+        }
+        .watch-now-modal .card-image-container { overflow: hidden; aspect-ratio: 16 / 9; background-color: var(--bg-tertiary); }
+        .watch-now-modal .card-image { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.3s ease; }
+        .watch-now-modal .course-card:hover .card-image { transform: scale(1.05); }
+        .watch-now-modal .card-body { padding: 20px; }
+        .watch-now-modal .card-title { font-size: 18px; font-weight: 600; color: var(--text-primary); margin-bottom: 8px; }
+        .watch-now-modal .card-instructor { font-size: 14px; color: var(--text-secondary); margin-bottom: 20px; }
+        .watch-now-modal .watch-button {
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            width: 100%; text-align: center; background-color: var(--accent-primary);
+            color: #ffffff; padding: 12px 0; border-radius: 10px;
+            text-decoration: none; font-weight: 600; border: none;
+            transition: all 0.3s ease;
+        }
+        .watch-now-modal .watch-button:hover { background-color: #0077E0; box-shadow: 0 5px 15px rgba(10, 132, 255, 0.3); transform: translateY(-2px); }
+
+
+        /* --- Tic Tac Toe Game Styles (Updated) --- */
+        .game-modal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: var(--bg-primary); /* Changed background color */
+            z-index: 12000; display: none; justify-content: center;
+            color: white; font-family: 'Poppins', sans-serif;
+            padding: 1rem; box-sizing: border-box; overflow-y: auto;
+        }
+
+        .game-modal.v-centered {
+            display: flex;
+            align-items: center;
+        }
+        
+        #modeSelection h1 {
+            padding-right: 50px; /* Add padding to avoid overlap with close button */
+        }
+        
+        .close-game-button {
+            position: absolute;
+            top: 20px; /* Adjusted position */
+            right: 25px; /* Adjusted position */
+            background: #4a5568;
+            color: white; border: none; width: 40px; height: 40px;
+            border-radius: 50%; font-size: 28px; line-height: 40px;
+            text-align: center; cursor: pointer; z-index: 10;
+            transition: background-color 0.3s ease;
+        }
+        .close-game-button:hover {
+            background-color: #ef4444;
+        }
+
+        .mode-card {
+            background-color: #1C1C1E; /* Darker background for cards */
+            border-radius: 1rem; padding: 1.5rem; margin-bottom: 1rem;
+            display: flex; align-items: center; cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            border: 1px solid #2C2C2E;
+        }
+        .mode-card:hover {
+            background-color: #2C2C2E; /* Lighter on hover */
+            transform: translateY(-5px);
+        }
+        .mode-icon {
+            width: 50px; height: 50px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; margin-right: 1.5rem; flex-shrink: 0;
+        }
+        .mode-tag {
+            padding: 0.25rem 0.75rem; border-radius: 9999px;
+            font-size: 0.8rem; font-weight: 600; margin-left: 1rem;
+        }
+        
+        .cell {
+            background-color: #1C1C1E; /* Darker background for cells */
+            border-radius: 1rem;
+            transition: all 0.3s ease;
+            display: flex; align-items: center; justify-content: center;
+            position: relative;
+        }
+        .cell:hover {
+            background-color: #2C2C2E;
+        }
+        
+        .neon-x, .neon-o {
+            font-size: clamp(3rem, 15vw, 5rem);
+            font-weight: 700; line-height: 1;
+        }
+        .neon-x {
+            color: #00c6ff;
+            text-shadow: 0 0 5px #00c6ff, 0 0 15px #0072ff, 0 0 25px #0072ff;
+        }
+        .neon-o {
+            color: #ff4d4d;
+            text-shadow: 0 0 5px #ff4d4d, 0 0 15px #ff007f, 0 0 25px #ff007f;
+        }
+
+        .end-modal {
+            background-color: #1C1C1E;
+            border-radius: 1.5rem; padding: 2rem; width: 90%;
+            max-width: 380px; border: 1px solid #2C2C2E;
+            animation: zoomIn 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        @keyframes zoomIn {
+            from { opacity: 0; transform: scale(0.6); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .modal-icon { font-size: 4rem; margin-bottom: 1rem; }
+        .modal-title { font-size: 2.25rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .modal-subtitle { font-size: 1rem; color: #A0A0A0; margin-bottom: 2rem; min-height: 40px; }
+        .modal-button { width: 100%; padding: 1rem; border-radius: 0.75rem; font-size: 1.1rem; font-weight: 600; transition: all 0.3s ease; }
+        
+        .winning-line { position: absolute; background-color: #fdd835; box-shadow: 0 0 10px #fdd835, 0 0 20px #fdd835, 0 0 30px #fdd835; border-radius: 5px; animation: draw-line 0.5s ease-out; transform-origin: left; height: 8px; }
+        @keyframes draw-line { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+        
+        .fake-glow {
+            box-shadow: 0 0 15px 3px rgba(255, 165, 0, 0.5);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse { 0%, 100% { box-shadow: 0 0 15px 3px rgba(255, 165, 0, 0.5); } 50% { box-shadow: 0 0 25px 8px rgba(255, 165, 0, 0.7); } }
+        
+        .bomb-explode-animation { animation: red-flash 0.5s linear; }
+        @keyframes red-flash { from, to { background-color: #101010; } 50% { background-color: #7f1d1d; } }
+        
+        .screen-shake { animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both; }
+        @keyframes shake { 10%, 90% { transform: translate3d(-1px, 0, 0); } 20%, 80% { transform: translate3d(2px, 0, 0); } 30%, 50%, 70% { transform: translate3d(-4px, 0, 0); } 40%, 60% { transform: translate3d(4px, 0, 0); } }
+
+        .defused {
+            font-size: 2rem;
+            font-weight: bold;
+            animation: zoomIn 0.3s;
+        }
+    </style>
+</head>
+<body>
+    <div class="background-gradient"></div>
+
+    <header class="site-header" id="siteHeader">
+        <div id="header-content">
+            <a href="#" class="brand-logo">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhsq2CqKsSh-HymMj11QzARRmYrJIJqfrjRzqde2EyHctMUyggM8LD3xFtH3zLjAKNrvAVrCjR-YIcy9zhVZHQogD_Kd58LDq1-DtMCEZ6gt4lyId1_Qn0KDgBCKrLKKUoHmXGOvRUW5OCc5dYbvLyn0-_XWzmuTeWOz4zuBvoiiAEcb42WntPVtdiWAdI0/s5120/1000162494_enhanced.png" alt="Logo">
+                Revenue Aditya
+            </a>
+            <p class="header-subtitle">Your daily guide to online earning.</p>
+        </div>
+        <div class="search-container">
+            <div class="search-icon" id="searchIcon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            </div>
+            <input type="text" id="searchInput" placeholder="Search for apps, crypto, tricks...">
+            <button id="cancelSearchBtn">Cancel</button>
+        </div>
+    </header>
+
+    <div class="container" id="cards-container">
+        <div class="card">
+            <h2>🔥 Top 5 Earning Apps</h2>
+            <p>Handpicked applications with genuine reviews and instant download links.</p>
+            <a class="btn" href="javascript:void(0)" onclick="showWatchNowModal()">Watch Now</a>
+        </div>
+        <div class="card">
+            <h2>🪙 Crypto for Starters</h2>
+            <p>Learn high-return crypto investing from scratch. No experience needed!</p>
+            <a class="btn btn-secondary" href="#">Start Learning</a>
+        </div>
+        <div class="card">
+            <h2>🎯 Daily Tasks & Surveys</h2>
+            <p>Earn ₹20–₹100 daily with simple tasks, captchas, and quick surveys.</p>
+            <a class="btn btn-secondary" href="#">Do Now</a>
+        </div>
+        <div class="card">
+            <h2>📢 Join WhatsApp Channel</h2>
+            <p>Get exclusive tricks, secret app alerts, and instant updates on WhatsApp.</p>
+            <a class="btn" href="https://whatsapp.com/channel/0029VbB1UnZAe5VkOLgTHv1k" target="_blank">Join Now</a>
+        </div>
+        <div class="card">
+            <h2>▶️ Subscribe on YouTube</h2>
+            <p>In-depth video guides, payment proofs, and installation tricks.</p>
+            <a class="btn" href="https://youtube.com/@revenue.aditya?si=nZS5FiJWIEN1KVnO" target="_blank">Subscribe</a>
+        </div>
+        <div class="card">
+            <h2>🔍 Unlock Secret App</h2>
+            <p>Enter the correct code to unveil a hidden high-earning application.</p>
+            <a class="btn" href="javascript:void(0)" onclick="showCodeModal()">Enter Code</a>
+        </div>
+        <div class="card">
+            <h2>🤝 Refer & Earn</h2>
+            <p>Find the best referral programs and earn bonuses by inviting friends.</p>
+            <a class="btn btn-secondary" href="#">Explore Offers</a>
+        </div>
+        <div class="card">
+            <h2>🎮 Gaming Tournaments</h2>
+            <p>Participate in online gaming events and win real cash prizes daily.</p>
+            <a class="btn btn-secondary" href="javascript:void(0)" onclick="showGameModal()">Play & Win</a>
+        </div>
+
+        <div class="no-results" id="noResultsMessage">
+            <h2>Oops! No results found</h2>
+            <p>We couldn't find any match for your search. Please try different keywords.</p>
+        </div>
+    </div>
+
+    <div class="overlay" id="overlay" onclick="hideAllModals()"></div>
+
+    <div id="codeModal" class="code-modal">
+        <h2>🔐 Enter Secret Code</h2>
+        <input type="text" id="secretCode" placeholder="••••••••" />
+        <button class="btn" onclick="checkCode()">Unlock App</button>
+    </div>
+    
+    <div id="dialog" class="dialog-box"></div>
+
+    <div id="watchNowModal" class="watch-now-modal">
+      <div class="main-container">
+        <div class="modal-header">
+            <div class="modal-title">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhsq2CqKsSh-HymMj11QzARRmYrJIJqfrjRzqde2EyHctMUyggM8LD3xFtH3zLjAKNrvAVrCjR-YIcy9zhVZHQogD_Kd58LDq1-DtMCEZ6gt4lyId1_Qn0KDgBCKrLKKUoHmXGOvRUW5OCc5dYbvLyn0-_XWzmuTeWOz4zuBvoiiAEcb42WntPVtdiWAdI0/s5120/1000162494_enhanced.png" alt="Logo">
+                Revenue Aditya
+            </div>
+            <button class="close-button" onclick="hideAllModals()">×</button>
+        </div>
+        <header class="page-header">
+          <h1>Top Earning App Episodes</h1>
+          <p>Handpicked for you. Start earning today with our step-by-step video guides.</p>
+        </header>
+        <div class="course-grid">
+          <div class="course-card">
+            <div class="card-image-container">
+              <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjqH-O4mm4cbblV17FfKE0_JJm-Xx9hPGjvKbBfsp6xIIwXL6dTaQ2JZ1xqS9frubqJEYaO25ueGCUIgPGxfYZX1L2dtlnc26nP_IuElYGkaQBHU4VstG0jerfwqnJv46N1n155gccTfQbfUVfh-IPotjeT8Lj5sh9dZYaB04GgYwlTQq_vKrlVLG5l-sOt/s1280/1000178761.jpg" alt="Earning Video" class="card-image">
+            </div>
+            <div class="card-body">
+              <h3 class="card-title">Taarak Mehta Ka Ooltah Chashmah</h3>
+              <p class="card-instructor">By Revenue Aditya</p>
+              <a href="https://youtu.be/Cxeey6iEycA?si=mTB8RXNtaZgqY_we" class="watch-button">
+                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                 WATCH NOW
+              </a>
+            </div>
+          </div>
+          </div>
+      </div>
+    </div>
+
+    <footer>
+        © 2025 Revenue Aditya. All Rights Reserved.
+    </footer>
+
+    <div id="game-modal" class="game-modal">
+        <button id="closeGameBtn" class="close-game-button">&times;</button>
+        <div id="gameContainer" class="w-full max-w-md mx-auto">
+            <div id="modeSelection">
+                <h1 class="text-3xl font-bold text-center mb-6">Select Game Mode</h1>
+                <div id="modeList">
+                </div>
+            </div>
+
+            <main id="gameBoard" class="hidden">
+                <div id="statusHeader" class="text-center mb-4 flex items-center justify-between">
+                     <h2 id="modeTitle" class="text-2xl font-bold">VS AI (Easy)</h2>
+                     <div id="turnIndicator" class="bg-gray-700 text-white py-2 px-4 rounded-lg font-semibold">
+                        <i class="fas fa-user"></i> Your turn (X)
+                     </div>
+                </div>
+                <div id="board" class="grid grid-cols-3 gap-3 aspect-square max-w-md mx-auto relative mb-6">
+                </div>
+                <div class="flex items-center justify-center space-x-4">
+                    <button id="resetButton" class="bg-gray-600 hover:bg-gray-700 font-bold py-3 px-6 rounded-xl transition-all duration-300 border border-[#4a5568]"><i class="fas fa-sync-alt mr-2"></i>Restart</button>
+                    <button id="defuseButton" style="display: none;" class="bg-yellow-500 hover:bg-yellow-600 font-bold py-3 px-6 rounded-xl transition-all duration-300 border border-[#4a5568]"><i class="fas fa-shield-alt mr-2"></i>Defuse Cell (1)</button>
+                    <button id="mainMenuButton" class="bg-blue-600 hover:bg-blue-700 font-bold py-3 px-6 rounded-xl transition-all duration-300 border border-[#4a5568]"><i class="fas fa-home mr-2"></i>Main Menu</button>
+                </div>
+            </main>
+        </div>
+
+        <div id="modalsContainer" class="fixed inset-0 bg-black bg-opacity-70 backdrop-blur-sm flex items-center justify-center hidden z-50">
+            <div id="victoryModal" class="end-modal text-center hidden">
+                <i class="fas fa-trophy modal-icon" style="color: #34d399;"></i>
+                <h2 class="modal-title">🎉 Victory! 🎉</h2>
+                <p class="modal-subtitle">Your strategy was impeccable. Well played!</p>
+                <button id="victoryChallengeBtn" class="modal-button bg-blue-600 hover:bg-blue-700 mb-3">Challenge AI</button>
+                <button class="menu-btn modal-button bg-gray-700 hover:bg-gray-800">Menu</button>
+            </div>
+            <div id="lossModal" class="end-modal text-center hidden">
+                <i class="fas fa-robot modal-icon" style="color: #ef4444;"></i>
+                <h2 class="modal-title">💀 You Lost! 💀</h2>
+                <p class="modal-subtitle">The AI has proven its superiority. Better luck next time!</p>
+                <button id="lossChallengeBtn" class="modal-button bg-blue-600 hover:bg-blue-700 mb-3">Face Me Again</button>
+                <button class="menu-btn modal-button bg-gray-700 hover:bg-gray-800">Menu</button>
+            </div>
+            <div id="drawModal" class="end-modal text-center hidden">
+                <i class="fas fa-handshake modal-icon" style="color: #f59e0b;"></i>
+                <h2 class="modal-title">🤝 Draw! 🤝</h2>
+                <p class="modal-subtitle">It was a very close match. Try again!</p>
+                <button id="drawChallengeBtn" class="modal-button bg-blue-600 hover:bg-blue-700 mb-3">Demand Rematch</button>
+                <button class="menu-btn modal-button bg-gray-700 hover:bg-gray-800">Menu</button>
+            </div>
+            
+            <div id="bombExplodedModal" class="end-modal text-center hidden">
+                <i class="fas fa-bomb modal-icon" style="color: #ef4444;"></i>
+                <h2 class="modal-title">💥 KABOOM! 💥</h2>
+                <p class="modal-subtitle">You clicked on a hidden bomb and lost the game!</p>
+                <button id="bombTauntBtn" class="modal-button bg-red-600 hover:bg-red-700 mb-3">What does the AI say?</button>
+                <button class="menu-btn modal-button bg-gray-700 hover:bg-gray-800">Menu</button>
+            </div>
+
+            <div id="aiResponseModal" class="end-modal text-center hidden">
+                <i class="fas fa-robot modal-icon" id="aiResponseIcon" style="color: #f59e0b;"></i>
+                <h2 class="modal-title">AI Thinks...</h2>
+                <p id="aiResponseSubtitle" class="modal-subtitle">...</p>
+                <button class="rematch-btn modal-button bg-blue-600 hover:bg-blue-700 mb-3">Start Rematch</button>
+                <button class="menu-btn modal-button bg-gray-700 hover:bg-gray-800">Menu</button>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        // --- Main Page Script ---
+        const overlay = document.getElementById("overlay");
+        const codeModal = document.getElementById("codeModal");
+        const dialogBox = document.getElementById("dialog");
+        const watchNowModal = document.getElementById("watchNowModal");
+        const gameModal = document.getElementById("game-modal");
+
+        function showCodeModal() {
+            overlay.classList.add("visible");
+            codeModal.style.display = "block";
+            document.getElementById("secretCode").value = "";
+        }
+        
+        function showWatchNowModal() {
+            watchNowModal.classList.add("visible");
+        }
+
+        function showGameModal() {
+            gameModal.style.display = 'flex';
+        }
+
+        function hideAllModals() {
+            overlay.classList.remove("visible");
+            codeModal.style.display = "none";
+            dialogBox.style.display = "none";
+            watchNowModal.classList.remove("visible");
+        }
+
+        function showDialog(type, title, message) {
+            hideAllModals(); 
+            overlay.classList.add("visible");
+            dialogBox.innerHTML = `<h3 class="${type}">${title}</h3><p>${message}</p>`;
+            dialogBox.style.display = "block";
+            setTimeout(hideAllModals, 3000);
+        }
+
+        function checkCode() {
+            const code = document.getElementById("secretCode").value.trim();
+            const correctCode = "Add5677";
+            const appUrl = "https://play.google.com/store/apps/details?id=com.phonepe.app";
+
+            if (code === correctCode) {
+                hideAllModals();
+                setTimeout(() => {
+                    showDialog("success", "✅ Code Verified", "Redirecting to the secret app...");
+                    setTimeout(() => { window.location.href = appUrl; }, 2000); 
+                }, 200);
+            } else {
+                hideAllModals();
+                setTimeout(() => {
+                    showDialog("error", "❌ Invalid Code", "The code you entered is incorrect. Please try again.");
+                }, 200);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const searchInput = document.getElementById('searchInput');
+            const siteHeader = document.getElementById('siteHeader');
+            const cancelSearchBtn = document.getElementById('cancelSearchBtn');
+            const allCards = document.querySelectorAll('.card');
+            const searchIcon = document.getElementById('searchIcon');
+            const noResultsMessage = document.getElementById('noResultsMessage');
+
+            const filterCards = () => {
+                const query = searchInput.value.toLowerCase().trim();
+                let resultsFound = false;
+                allCards.forEach(card => {
+                    const cardText = card.textContent.toLowerCase();
+                    if (cardText.includes(query)) {
+                        card.style.display = 'flex';
+                        resultsFound = true;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+
+                noResultsMessage.style.display = resultsFound ? 'none' : 'block';
+            };
+
+            const enterSearchMode = () => { siteHeader.classList.add('search-active'); };
+            const exitSearchMode = () => {
+                siteHeader.classList.remove('search-active');
+                searchInput.value = '';
+                filterCards();
+                searchInput.blur();
+            };
+
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) siteHeader.classList.add('scrolled');
+                else siteHeader.classList.remove('scrolled');
+            });
+
+            searchIcon.addEventListener('click', (e) => {
+                if(siteHeader.classList.contains('scrolled')) {
+                    e.stopPropagation();
+                    searchInput.focus();
+                }
+            });
+
+            searchInput.addEventListener('input', filterCards);
+            searchInput.addEventListener('focus', enterSearchMode);
+            cancelSearchBtn.addEventListener('click', exitSearchMode);
+        });
+    </script>
+
+    <script>
+    // --- Tic Tac Toe Game Script (Updated) ---
+    document.addEventListener('DOMContentLoaded', () => {
+        const ticTacToeGameModal = document.getElementById('game-modal');
+        const closeGameButton = ticTacToeGameModal.querySelector('#closeGameBtn');
+        const modeSelectionScreen = ticTacToeGameModal.querySelector('#modeSelection');
+        const modeList = ticTacToeGameModal.querySelector('#modeList');
+        const gameBoardScreen = ticTacToeGameModal.querySelector('#gameBoard');
+        const boardElement = ticTacToeGameModal.querySelector('#board');
+        const statusHeader = { 
+            modeTitle: ticTacToeGameModal.querySelector('#modeTitle'), 
+            turnIndicator: ticTacToeGameModal.querySelector('#turnIndicator') 
+        };
+        const resetButton = ticTacToeGameModal.querySelector('#resetButton');
+        const mainMenuButton = ticTacToeGameModal.querySelector('#mainMenuButton');
+        const defuseButton = ticTacToeGameModal.querySelector('#defuseButton');
+        const modalsContainer = ticTacToeGameModal.querySelector('#modalsContainer');
+        const victoryModal = ticTacToeGameModal.querySelector('#victoryModal');
+        const lossModal = ticTacToeGameModal.querySelector('#lossModal');
+        const drawModal = ticTacToeGameModal.querySelector('#drawModal');
+        const bombExplodedModal = ticTacToeGameModal.querySelector('#bombExplodedModal');
+        const aiResponseModal = ticTacToeGameModal.querySelector('#aiResponseModal');
+        const aiResponseSubtitle = ticTacToeGameModal.querySelector('#aiResponseSubtitle');
+        const victoryChallengeBtn = ticTacToeGameModal.querySelector('#victoryChallengeBtn');
+        const lossChallengeBtn = ticTacToeGameModal.querySelector('#lossChallengeBtn');
+        const drawChallengeBtn = ticTacToeGameModal.querySelector('#drawChallengeBtn');
+        const bombTauntBtn = ticTacToeGameModal.querySelector('#bombTauntBtn');
+        
+        let board = ['', '', '', '', '', '', '', '', ''];
+        let currentPlayer = 'X';
+        let gameActive = true;
+        let currentMode = 'hard';
+        const player = 'X';
+        const ai = 'O';
+        let aiLossCount = 0;
+        
+        let bombCells = [];
+        let fakeGlowCells = [];
+        let isDefuseAvailable = true;
+        let isDefusing = false;
+        
+        const modeDetails = {
+            easy: { title: "VS AI (Easy)", description: "Perfect for beginners. The AI plays randomly.", icon: "fa-robot", iconColor: "bg-green-500", tag: "Easy", tagColor: "bg-green-600" },
+            medium: { title: "VS AI (Medium)", description: "A moderate challenge. The AI tries to block your moves.", icon: "fa-brain", iconColor: "bg-yellow-500", tag: "Medium", tagColor: "bg-yellow-600" },
+            hard: { title: "VS AI (Hard)", description: "For experts! The AI is nearly unbeatable using Minimax.", icon: "fa-crown", iconColor: "bg-red-500", tag: "Hard", tagColor: "bg-red-600" },
+            bomb: { title: "Bomb Mode", description: "Watch out for explosive tiles! A dangerous twist to the game.", icon: "fa-bomb", iconColor: "bg-purple-500", tag: "Extreme", tagColor: "bg-purple-600" },
+            '2p': { title: "Play with Friends", description: "Two players on the same device. Perfect for quick matches!", icon: "fa-user-friends", iconColor: "bg-blue-500", tag: "Local", tagColor: "bg-blue-600" }
+        };
+
+        const sounds = {
+            click: new Audio('https://files.catbox.moe/dvmz73.mp3'), win: new Audio('https://files.catbox.moe/d5ap9g.mp3'),
+            lose: new Audio('https://files.catbox.moe/qfkjg3.mp3'), draw: new Audio('https://files.catbox.moe/ke5pf3.mp3'),
+            reset: new Audio('https://files.catbox.moe/p343g9.mp3'), invalidMove: new Audio('https://files.catbox.moe/26aptq.mp3'),
+            explosion: new Audio('https://files.catbox.moe/u9h9jh.mp3'), defuse: new Audio('https://files.catbox.moe/p343g9.mp3'),
+            aiLoss1: new Audio('https://files.catbox.moe/6gsilt.mp3'), aiLoss2: new Audio('https://files.catbox.moe/q5cbmn.mp3'),
+            aiLoss3: new Audio('https://files.catbox.moe/115nhk.mp3'), aiWins: new Audio('https://files.catbox.moe/t990j8.mp3'),
+            rematchPrompt: new Audio('https://files.catbox.moe/vl3hcg.mp3'), aiTauntBomb: new Audio('https://files.catbox.moe/0esue2.mp3')
+        };
+        Object.values(sounds).forEach(sound => sound.load());
+
+        const stopAllSounds = () => {
+            Object.values(sounds).forEach(sound => {
+                if (sound && !sound.paused) {
+                    sound.pause();
+                    sound.currentTime = 0;
+                }
+            });
+        };
+        
+        const playSound = (sound, delay = 0) => {
+            if(sound) { 
+                setTimeout(() => { 
+                    sound.currentTime = 0; 
+                    sound.play().catch(e => {}); 
+                }, delay); 
+            }
+        };
+        
+        const aiDialogues = {
+            loss: [{ sound: sounds.aiLoss1, text: "What!? You beat me? That must be luck!" },{ sound: sounds.aiLoss2, text: "You think you're better than me? This game isn’t over!" },{ sound: sounds.aiLoss3, text: "No more games. I’ll destroy you now." }],
+            win: { sound: sounds.aiWins, text: "Ha ha! I win. You can't beat me!" },
+            draw: { sound: sounds.rematchPrompt, text: "You can't escape now. Start the rematch!" },
+            bomb: { sound: sounds.aiTauntBomb, text: "The bomb was silent... but your mistake was loud. Hahaha!", delay: 500 }
+        };
+        
+        const winningConditions = [ [0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6] ];
+        
+        const init = () => { renderModeSelection(); setupAllButtons(); };
+
+        const renderModeSelection = () => {
+            modeList.innerHTML = '';
+            for (const [key, value] of Object.entries(modeDetails)) {
+                const card = document.createElement('div');
+                card.className = 'mode-card';
+                card.dataset.mode = key;
+                card.innerHTML = `<div class="mode-icon ${value.iconColor}"> <i class="fas ${value.icon}"></i> </div><div class="flex-grow"><h3 class="text-xl font-bold">${value.title}</h3><p class="text-sm text-gray-400">${value.description}</p></div><div class="mode-tag ${value.tagColor}">${value.tag}</div>`;
+                card.addEventListener('click', () => startGame(key));
+                modeList.appendChild(card);
+            }
+        };
+
+        const startGame = (mode) => {
+            currentMode = mode;
+            ticTacToeGameModal.classList.add('v-centered');
+            modeSelectionScreen.classList.add('hidden');
+            gameBoardScreen.classList.remove('hidden');
+            defuseButton.style.display = 'none';
+            if (currentMode === 'bomb') { defuseButton.style.display = 'inline-block'; }
+            resetGame();
+        };
+        
+        const hideAllGameModals = () => {
+             modalsContainer.classList.add('hidden');
+             Object.values(modalsContainer.children).forEach(modal => modal.classList.add('hidden'));
+        }
+
+        const createBoard = () => {
+            boardElement.innerHTML = '';
+            for (let i = 0; i < 9; i++) {
+                const cell = document.createElement('div');
+                cell.className = 'cell';
+                cell.dataset.index = i;
+                cell.addEventListener('click', handleCellClick);
+                boardElement.appendChild(cell);
+            }
+        };
+
+        const resetGame = () => {
+            stopAllSounds(); // Stop sounds on reset
+            board = ['', '', '', '', '', '', '', '', ''];
+            gameActive = true;
+            currentPlayer = 'X';
+            isDefusing = false; isDefuseAvailable = true;
+            bombCells = []; fakeGlowCells = [];
+            ticTacToeGameModal.classList.remove('screen-shake', 'bomb-explode-animation');
+            defuseButton.disabled = false; defuseButton.textContent = 'Defuse Cell (1)';
+            boardElement.style.cursor = 'pointer';
+            playSound(sounds.reset);
+            updateStatusDisplay();
+            const existingLine = boardElement.querySelector('.winning-line');
+            if (existingLine) existingLine.remove();
+            createBoard(); 
+            hideAllGameModals();
+            if (currentMode === 'bomb') { initializeBombMode(); }
+            if (currentMode !== '2p' && currentPlayer === ai) { setTimeout(aiMove, 500); }
+        };
+        
+        const goBackToMenu = () => {
+            stopAllSounds(); // Stop sounds on going to menu
+            aiLossCount = 0;
+            gameBoardScreen.classList.add('hidden');
+            hideAllGameModals();
+            modeSelectionScreen.classList.remove('hidden');
+            ticTacToeGameModal.classList.remove('v-centered');
+            playSound(sounds.click);
+        };
+        
+        const setupAllButtons = () => {
+             resetButton.addEventListener('click', resetGame);
+             mainMenuButton.addEventListener('click', goBackToMenu);
+             defuseButton.addEventListener('click', activateDefuse);
+             closeGameButton.addEventListener('click', () => { ticTacToeGameModal.style.display = 'none'; goBackToMenu(); });
+             ticTacToeGameModal.querySelectorAll('.rematch-btn').forEach(btn => btn.addEventListener('click', resetGame));
+             ticTacToeGameModal.querySelectorAll('.menu-btn').forEach(btn => btn.addEventListener('click', goBackToMenu));
+             victoryChallengeBtn.addEventListener('click', () => { showAiResponseModal(aiDialogues.loss[aiLossCount % aiDialogues.loss.length]); });
+             lossChallengeBtn.addEventListener('click', () => showAiResponseModal(aiDialogues.win));
+             drawChallengeBtn.addEventListener('click', () => showAiResponseModal(aiDialogues.draw));
+             bombTauntBtn.addEventListener('click', () => showAiResponseModal(aiDialogues.bomb));
+        };
+        
+        const showAiResponseModal = (dialogue) => {
+            stopAllSounds();
+            hideAllGameModals(); 
+            aiResponseSubtitle.textContent = dialogue.text;
+            playSound(dialogue.sound, dialogue.delay || 0);
+            modalsContainer.classList.remove('hidden');
+            aiResponseModal.classList.remove('hidden');
+        };
+
+        const handleCellClick = (e) => {
+            playSound(sounds.click); // Play sound immediately
+            const cell = e.currentTarget; const index = parseInt(cell.dataset.index);
+            if (!gameActive || board[index] !== '') { if(board[index] !== '') playSound(sounds.invalidMove); return; }
+            if (isDefusing) { defuseCell(index); return; }
+            if (currentMode === 'bomb' && bombCells.includes(index)) { handleBombLoss(); return; }
+            updateCell(cell, index); checkResult();
+            if (gameActive && currentMode !== '2p' && currentPlayer === ai) { statusHeader.turnIndicator.innerHTML = `<i class="fas fa-robot"></i> AI is thinking...`; setTimeout(aiMove, 700); }
+        };
+
+        const updateCell = (cell, index) => {
+            board[index] = currentPlayer;
+            cell.innerHTML = `<span class="${currentPlayer === 'X' ? 'neon-x' : 'neon-o'}">${currentPlayer}</span>`;
+            currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+            if (gameActive) updateStatusDisplay();
+        };
+
+        const updateStatusDisplay = () => {
+            statusHeader.modeTitle.textContent = modeDetails[currentMode].title;
+            statusHeader.turnIndicator.innerHTML = currentMode === '2p' ? `<i class="fas fa-user"></i> Player ${currentPlayer}'s turn` : (currentPlayer === player ? `<i class="fas fa-user"></i> Your Turn (${player})` : `<i class="fas fa-robot"></i> AI's Turn (${ai})`);
+        };
+
+        const checkResult = () => {
+            let roundWon = false, winningCombo = [];
+            for (const winCondition of winningConditions) {
+                const a = board[winCondition[0]], b = board[winCondition[1]], c = board[winCondition[2]];
+                if (a && a === b && b === c) { roundWon = true; winningCombo = winCondition; break; }
+            }
+            if (roundWon) {
+                const winner = currentPlayer === 'X' ? 'O' : 'X';
+                gameActive = false; drawWinningLine(winningCombo);
+                setTimeout(() => handleGameEnd(false, winner), 500); return;
+            }
+            if (!board.includes('')) { gameActive = false; handleGameEnd(true); }
+        };
+        
+        const handleGameEnd = (isDraw, winner = null) => {
+            stopAllSounds();
+            hideAllGameModals(); modalsContainer.classList.remove('hidden');
+            if(isDraw) { drawModal.classList.remove('hidden'); playSound(sounds.draw); } 
+            else if (winner === player || (currentMode === '2p' && winner)) {
+                 if(currentMode !== '2p') aiLossCount++;
+                 victoryModal.classList.remove('hidden');
+                 const title = victoryModal.querySelector('.modal-title');
+                 if(currentMode === '2p') { title.textContent = `🎉 Player ${winner} Wins! 🎉`; victoryChallengeBtn.style.display = 'none'; } 
+                 else { title.textContent = `🎉 Victory! 🎉`; victoryChallengeBtn.style.display = 'block'; }
+                playSound(sounds.win);
+            } else { lossModal.classList.remove('hidden'); playSound(sounds.lose); }
+        };
+        
+        const initializeBombMode = () => {
+            const availableIndices = Array.from({length: 9}, (_, i) => i);
+            for (let i = 0; i < 2; i++) { bombCells.push(availableIndices.splice(Math.floor(Math.random() * availableIndices.length), 1)[0]); }
+            for (let i = 0; i < 3; i++) {
+                if(availableIndices.length === 0) break;
+                const fakeIndex = availableIndices.splice(Math.floor(Math.random() * availableIndices.length), 1)[0];
+                fakeGlowCells.push(fakeIndex); boardElement.querySelector(`[data-index='${fakeIndex}']`).classList.add('fake-glow');
+            }
+        };
+
+        const handleBombLoss = () => {
+            gameActive = false; playSound(sounds.explosion); if (navigator.vibrate) navigator.vibrate(300);
+            ticTacToeGameModal.classList.add('screen-shake', 'bomb-explode-animation');
+            setTimeout(() => ticTacToeGameModal.classList.remove('screen-shake', 'bomb-explode-animation'), 500);
+            bombCells.forEach(index => { boardElement.querySelector(`[data-index='${index}']`).innerHTML = '<i class="fas fa-bomb" style="font-size: 3rem; color: #ef4444;"></i>'; });
+            setTimeout(() => { hideAllGameModals(); modalsContainer.classList.remove('hidden'); bombExplodedModal.classList.remove('hidden'); }, 600);
+        };
+        
+        const activateDefuse = () => {
+            if (!isDefuseAvailable || !gameActive || isDefusing) return;
+            isDefusing = true; defuseButton.textContent = 'Select a cell...';
+            defuseButton.disabled = true; boardElement.style.cursor = 'crosshair';
+        };
+
+        const defuseCell = (index) => {
+            playSound(sounds.defuse); const cellEl = boardElement.querySelector(`[data-index='${index}']`);
+            cellEl.innerHTML = `<span class="defused">${bombCells.includes(index) ? '✅' : '👍'}</span>`;
+            if (bombCells.includes(index)) { bombCells = bombCells.filter(i => i !== index); }
+            cellEl.classList.remove('fake-glow'); isDefusing = false; isDefuseAvailable = false;
+            boardElement.style.cursor = 'pointer'; defuseButton.textContent = 'Defused!';
+        };
+
+        const getSafeMoves = () => board.map((c, i) => c === '' && (currentMode !== 'bomb' || !bombCells.includes(i)) ? i : -1).filter(i => i !== -1);
+        
+        const aiMove = () => {
+            if (!gameActive) return; let move;
+            switch(currentMode) {
+                case 'easy': move = getRandomMove(); break;
+                case 'medium': move = getMediumMove(); break;
+                case 'hard': case 'bomb': move = getBestMove(); break;
+            }
+            if (move !== undefined) { 
+                const cell = boardElement.querySelector(`[data-index='${move}']`); 
+                updateCell(cell, move); 
+                playSound(sounds.click); 
+                checkResult(); 
+            }
+        };
+        const getRandomMove = () => { const available = getSafeMoves(); return available.length > 0 ? available[Math.floor(Math.random() * available.length)] : undefined; };
+        const getMediumMove = () => {
+            const safeMoves = getSafeMoves();
+            for (const p of [ai, player]) {
+                for (const move of safeMoves) {
+                    board[move] = p; if (checkWinner(p)) { board[move] = ''; return move; }
+                    board[move] = '';
+                }
+            }
+            return getRandomMove();
+        };
+        const getBestMove = () => {
+            let bestScore = -Infinity; let move; const safeMoves = getSafeMoves();
+            for (const i of safeMoves) {
+                board[i] = ai; let score = minimax(board, 0, false); board[i] = '';
+                if (score > bestScore) { bestScore = score; move = i; }
+            }
+            return move;
+        };
+        const scores = { 'X': -10, 'O': 10, 'tie': 0 };
+        const minimax = (currentBoard, depth, isMaximizing) => {
+            let winner = checkWinnerForMinimax(currentBoard);
+            if (winner !== null) return scores[winner];
+            let bestScore = isMaximizing ? -Infinity : Infinity;
+            for (let i = 0; i < 9; i++) {
+                if (currentBoard[i] === '') {
+                    currentBoard[i] = isMaximizing ? ai : player;
+                    let score = minimax(currentBoard, depth + 1, !isMaximizing);
+                    currentBoard[i] = '';
+                    bestScore = isMaximizing ? Math.max(score, bestScore) : Math.min(score, bestScore);
+                }
+            }
+            return bestScore;
+        };
+        const checkWinnerForMinimax = (b) => {
+            for (const c of winningConditions) { if (b[c[0]] && b[c[0]] === b[c[1]] && b[c[0]] === b[c[2]]) return b[c[0]]; }
+            return b.includes('') ? null : 'tie';
+        };
+        const checkWinner = (p) => winningConditions.some(c => c.every(i => board[i] === p));
+        const drawWinningLine = (combo) => {
+            const line = document.createElement('div'); line.className = 'winning-line';
+            const boardRect = boardElement.getBoundingClientRect(); const startCell = boardElement.children[combo[0]].getBoundingClientRect();
+            const endCell = boardElement.children[combo[2]].getBoundingClientRect();
+            const startX = startCell.left + startCell.width / 2 - boardRect.left; const startY = startCell.top + startCell.height / 2 - boardRect.top;
+            const endX = endCell.left + endCell.width / 2 - boardRect.left; const endY = endCell.top + endCell.height / 2 - boardRect.top;
+            const angle = Math.atan2(endY - startY, endX - startX) * 180 / Math.PI;
+            const length = Math.sqrt(Math.pow(endX - startX, 2) + Math.pow(endY - startY, 2));
+            line.style.width = `${length}px`; line.style.top = `${startY - 4}px`; line.style.left = `${startX}px`; line.style.transform = `rotate(${angle}deg)`;
+            boardElement.appendChild(line);
+        };
+        
+        init();
+    });
+    </script>
+</body>
+</html>
