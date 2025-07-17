@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced App Review Form | Revenue Aditya</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* --- Global Styles & Premium UI Font --- */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: #0A0A0A; /* Premium Deep Black */
+            color: #EAEAEA;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* --- ADVANCED: Fading Header --- */
+        .form-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 100;
+            padding: 15px 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+
+        .form-header.hidden {
+            opacity: 0;
+            transform: translateY(-100%);
+            pointer-events: none;
+        }
+
+        .form-header h1 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #FFFFFF;
+        }
+
+        .form-header p {
+            font-size: 0.9rem;
+            color: #A0A0A0;
+            margin-top: 4px;
+        }
+        
+        /* --- Form Layout --- */
+        .form-container {
+            padding-top: 110px;
+            padding-bottom: 120px;
+        }
+
+        .form-content {
+            padding: 0 15px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* --- Premium Form Group (Card) Styling --- */
+        .form-group {
+            padding: 18px 20px;
+            margin-bottom: 18px;
+            background: #1C1C1C;
+            border-radius: 16px;
+            border: 1px solid #333;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .form-group:focus-within {
+             border-color: #3B82F6;
+             box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+        
+        .form-group.error {
+            border-color: #D32F2F;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 500;
+            color: #F0F0F0;
+            font-size: 1rem;
+            margin-bottom: 12px;
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="url"],
+        .form-group textarea {
+            width: 100%;
+            background: transparent;
+            border: none;
+            color: #EAEAEA;
+            font-size: 1rem;
+            outline: none;
+        }
+        
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover,
+        input:-webkit-autofill:focus,
+        input:-webkit-autofill:active,
+        textarea:-webkit-autofill,
+        textarea:-webkit-autofill:hover,
+        textarea:-webkit-autofill:focus,
+        textarea:-webkit-autofill:active {
+            -webkit-box-shadow: 0 0 0 30px #1C1C1C inset !important;
+            -webkit-text-fill-color: #EAEAEA !important;
+            transition: background-color 5000s ease-in-out 0s;
+        }
+        
+        .char-counter {
+            font-size: 0.8rem; color: #777; position: absolute;
+            bottom: -20px; right: 5px; display: none;
+            background-color: #0A0A0A; padding: 0 2px;
+        }
+        .form-group:focus-within .char-counter { display: block; }
+
+        .validation-message {
+            color: #F9A8A8; font-weight: 500; font-size: 0.85rem;
+            margin-top: 8px; display: none;
+        }
+        .validation-message.show { display: block; }
+        
+        .input-wrapper .prefix, .input-wrapper .suffix { font-weight: 500; color: #888; }
+        .input-wrapper .prefix { margin-right: 8px; }
+        .input-wrapper .suffix { margin-left: 8px; }
+        
+        .rating-selector {
+            display: flex; flex-wrap: wrap; justify-content: flex-start;
+            gap: 8px; margin-top: 10px;
+        }
+        .rating-number {
+            width: 32px; height: 32px; border-radius: 50%;
+            background-color: #333; color: #ccc;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 600; cursor: pointer; transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+        .rating-number:hover { background-color: #444; }
+        .rating-number.selected { background-color: #3B82F6; color: white; transform: scale(1.1); }
+        
+        .checkbox-group, .radio-group { 
+            display: flex; flex-direction: column; gap: 18px; padding: 5px 0; 
+        }
+        .checkbox-option, .radio-option { display: flex; align-items: center; gap: 15px; cursor: pointer; }
+        .checkbox-option label, .radio-option label { font-weight: 400; color: #ccc; font-size: 1rem; margin-bottom: 0; }
+        
+        input[type="checkbox"], input[type="radio"] { 
+            all: unset; width: 22px; height: 22px; border: 2px solid #555;
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+            transition: all 0.2s ease; flex-shrink: 0; 
+        }
+        input[type="checkbox"] { border-radius: 6px; }
+        input[type="radio"] { border-radius: 50%; }
+        input[type="checkbox"]:checked { border-color: #3B82F6; background-color: #3B82F6; }
+        input[type="checkbox"]:checked::before { 
+            content: '\f00c'; font-family: "Font Awesome 6 Free"; font-weight: 900; 
+            color: #fff; font-size: 12px; 
+        }
+        input[type="radio"]:checked { border-color: #3B82F6; }
+        input[type="radio"]:checked::before { content: ''; width: 12px; height: 12px; background: #3B82F6; border-radius: 50%; }
+
+        .form-footer {
+            position: fixed; bottom: 0; left: 0; width: 100%;
+            padding: 15px 20px 20px 20px;
+            background: linear-gradient(to top, rgba(10,10,10,1) 70%, rgba(10,10,10,0));
+            z-index: 100; transition: opacity 0.4s ease, transform 0.4s ease;
+            opacity: 0; transform: translateY(100%); pointer-events: none;
+        }
+        .form-footer.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+
+        .continue-btn {
+            background: linear-gradient(45deg, #3B82F6, #60A5FA); color: white;
+            border: none; width: 100%; padding: 18px; font-size: 1.1rem;
+            border-radius: 14px; cursor: pointer; transition: all 0.3s ease;
+            font-weight: 600; box-shadow: 0 5px 20px rgba(59, 130, 246, 0.3);
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+        }
+        .continue-btn.disabled { background: #333; color: #777; box-shadow: none; cursor: not-allowed; }
+
+        #toast {
+            position: fixed; bottom: 100px; left: 50%;
+            transform: translate(-50%, 20px); background-color: #D32F2F;
+            color: white; padding: 14px 22px; border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3); font-weight: 500;
+            z-index: 5000; opacity: 0; visibility: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        #toast.show { opacity: 1; visibility: visible; transform: translate(-50%, 0); }
+        #toast i { margin-right: 8px; }
+
+        /* --- Material Confirmation Dialog --- */
+        .dialog-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(8px);
+            z-index: 2000; display: flex; align-items: center; justify-content: center;
+            padding: 20px; opacity: 0; visibility: hidden; transition: opacity 0.3s ease;
+        }
+        .dialog-overlay.active { opacity: 1; visibility: visible; }
+        
+        /* FIXED: Dialog Box made more compact to avoid scrolling */
+        .dialog-box {
+            background: #2C2C2E; border-radius: 20px; padding: 20px;
+            width: 100%; max-width: 420px; text-align: left;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            transform: scale(0.95);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .dialog-overlay.active .dialog-box { transform: scale(1); }
+
+        .dialog-box h3 {
+            color: #FFFFFF; font-size: 1.4rem; margin-bottom: 15px;
+            font-weight: 600; text-align: center;
+        }
+
+        .dialog-content p { color: #A0A0A0; font-size: 0.9rem; line-height: 1.4; margin-bottom: 6px; }
+        .dialog-content p span {
+            font-weight: 600; color: #EAEAEA;
+            word-break: break-all;
+            display: inline-block;
+        }
+        .dialog-content hr { border: none; height: 1px; background-color: #444; margin: 12px 0; }
+        
+        .dialog-instructions {
+            margin-top: 15px; padding: 12px; border-radius: 12px;
+            background: rgba(59, 130, 246, 0.1); color: #A7C7F8;
+            font-size: 0.85rem;
+        }
+        .dialog-instructions h4 {
+            font-weight: 600; color: #E0E8F9; margin-bottom: 10px;
+            text-align: center;
+        }
+        .dialog-instructions ol { margin: 0; padding-left: 20px; line-height: 1.5; }
+        .dialog-instructions li { margin-bottom: 4px; }
+        
+        .dialog-buttons { display: flex; gap: 12px; margin-top: 20px; }
+        .dialog-btn { flex-grow: 1; border: none; padding: 14px; font-size: 1rem; border-radius: 12px; cursor: pointer; transition: all 0.3s ease; font-weight: 600; }
+        .cancel-btn { background-color: #4A4A4E; color: #eee; }
+        .submit-final-btn { background: linear-gradient(45deg, #3B82F6, #60A5FA); color: white; }
+    </style>
+</head>
+<body>
+    
+    <header class="form-header" id="formHeader">
+        <h1>App Review Submission</h1>
+        <p>Share your experience with our community</p>
+    </header>
+
+    <main class="form-container">
+        <form id="reviewForm" class="form-content" novalidate>
+            <div class="form-group"><label for="fullName">Aapka Poora Naam</label><input type="text" id="fullName" name="fullName" placeholder="e.g., Rohan Kumar" required maxlength="50"></div>
+            <div class="form-group"><label for="email">Email Address</label><input type="email" id="email" name="email" placeholder="Aapka email address yahan daalein" required></div>
+            <div class="form-group"><label for="appName">Aapne kis app se paisa kamaya?</label><input type="text" id="appName" name="appName" placeholder="e.g., Roz Dhan, TaskBucks" required maxlength="50"></div>
+            <div class="form-group"><label for="paymentDuration">Payment milne me kitna time laga?</label><div class="input-wrapper"><input type="text" id="paymentDuration" name="paymentDuration" placeholder="5" required inputmode="numeric" pattern="[0-9]*" maxlength="3"><span class="suffix">Days</span></div></div>
+            <div class="form-group"><label for="totalEarning">Total kitna paisa kamaya?</label><div class="input-wrapper"><span class="prefix">₹</span><input type="text" id="totalEarning" name="totalEarning" placeholder="150" required inputmode="numeric" pattern="[0-9]*" maxlength="5"></div></div>
+            <div class="form-group"><label>Aap is app ko kitni rating denge? (1 se 10)</label><div class="rating-selector" id="ratingSelector"></div><input type="hidden" id="appRating" name="appRating" required><div class="validation-message">Required</div></div>
+            <div class="form-group"><label for="experience">App ka experience kaisa raha?</label><textarea id="experience" name="experience" placeholder="App real tha ya fake? Use karna easy tha?" rows="4" required maxlength="500"></textarea></div>
+            <div class="form-group"><label>Aap kya submit karna chahte ho?</label><div class="radio-group"><div class="radio-option"><input type="radio" id="submitType1" name="submitType" value="Sirf App Review" required><label for="submitType1">Sirf App Review</label></div><div class="radio-option"><input type="radio" id="submitType2" name="submitType" value="Sirf Payment Proof" required><label for="submitType2">Sirf Payment Proof</label></div><div class="radio-option"><input type="radio" id="submitType3" name="submitType" value="Dono — Review aur Proof" required><label for="submitType3">Dono — Review aur Proof</label></div></div><div class="validation-message">Required</div></div>
+            <div class="form-group"><label for="referralLink">Agar koi referral link ho toh yahan paste karein</label><input type="url" id="referralLink" name="referralLink" placeholder="Apna referral ya invite link paste karein" required><div class="validation-message">Required</div></div>
+            <div class="form-group"><label for="feedback">Koi sujhaav ya feedback ho toh likhiye</label><textarea id="feedback" name="feedback" placeholder="Form, website ya process ke liye kuch kehna chahte ho toh yahan likh sakte ho" rows="3" required maxlength="300"></textarea></div>
+            <div class="form-group" id="consentSection"><label>Consent</label><div class="checkbox-group"><div class="checkbox-option"><input type="checkbox" id="consent1" name="consent1" required><label for="consent1">Details mere experience par based hain.</label></div><div class="checkbox-option"><input type="checkbox" id="consent2" name="consent2" required><label for="consent2">Mera review feature kiya ja sakta hai.</label></div></div><div class="validation-message">Required</div></div>
+        </form>
+    </main>
+
+    <footer class="form-footer" id="formFooter">
+        <button type="button" class="continue-btn disabled" id="continueBtn">
+            Continue <i class="fa-solid fa-arrow-right"></i>
+        </button>
+    </footer>
+
+    <div id="toast"><i class="fa-solid fa-circle-exclamation"></i> <span></span></div>
+    
+    <div class="dialog-overlay" id="confirmationDialog">
+        <div class="dialog-box">
+            <h3>Final Step: Confirm Details</h3>
+            <div class="dialog-content" id="dialogContent">
+                </div>
+            <div class="dialog-instructions">
+                <h4>Gmail me Proof Kaise Bhejein?</h4>
+                <ol>
+                    <li>'Submit' par click karte hi Gmail app open hoga.</li>
+                    <li>Upar 'Attach' (pin jaisa icon) par click karein.</li>
+                    <li>Apna **Payment Proof** ka screenshot chunein.</li>
+                    <li>Screenshot attach hone ke baad, email 'Send' kar dein.</li>
+                </ol>
+            </div>
+            <div class="dialog-buttons">
+                <button class="dialog-btn cancel-btn" id="cancelSubmitBtn">Cancel</button>
+                <button class="dialog-btn submit-final-btn" id="finalSubmitBtn">Submit & Open Gmail <i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- Element Selections ---
+        const reviewForm = document.getElementById('reviewForm');
+        const header = document.getElementById('formHeader');
+        const footer = document.getElementById('formFooter');
+        const continueBtn = document.getElementById('continueBtn');
+        const consentSection = document.getElementById('consentSection');
+        const consentCheckboxes = [document.getElementById('consent1'), document.getElementById('consent2')];
+        const ratingSelector = document.getElementById('ratingSelector');
+        const hiddenRatingInput = document.getElementById('appRating');
+        const confirmationDialog = document.getElementById('confirmationDialog');
+        const dialogContent = document.getElementById('dialogContent');
+        const cancelSubmitBtn = document.getElementById('cancelSubmitBtn');
+        const finalSubmitBtn = document.getElementById('finalSubmitBtn');
+        const toastElement = document.getElementById('toast');
+        const allRequiredInputs = reviewForm.querySelectorAll('[required]');
+
+        // --- Functions ---
+        const handleScroll = () => {
+            header.classList.toggle('hidden', window.scrollY > 30);
+        };
+
+        let toastTimeout;
+        const showToast = (message) => {
+            clearTimeout(toastTimeout);
+            toastElement.querySelector('span').textContent = message;
+            toastElement.classList.add('show');
+            toastTimeout = setTimeout(() => {
+                toastElement.classList.remove('show');
+            }, 3000);
+        };
+
+        const checkConsentState = () => {
+            const allChecked = consentCheckboxes.every(cb => cb.checked);
+            continueBtn.classList.toggle('disabled', !allChecked);
+            if (allChecked) {
+                clearError(consentSection);
+            }
+        };
+        
+        const clearError = (element) => {
+            const formGroup = element.closest('.form-group');
+            if (formGroup) {
+                formGroup.classList.remove('error');
+                const errorMsg = formGroup.querySelector('.validation-message');
+                if (errorMsg) errorMsg.classList.remove('show');
+            }
+        };
+
+        const initRatingSelector = () => {
+            for (let i = 1; i <= 10; i++) {
+                const numDiv = document.createElement('div');
+                numDiv.className = 'rating-number';
+                numDiv.textContent = i;
+                numDiv.dataset.value = i;
+                ratingSelector.appendChild(numDiv);
+            }
+            ratingSelector.addEventListener('click', (e) => {
+                if (e.target.classList.contains('rating-number')) {
+                    ratingSelector.querySelector('.selected')?.classList.remove('selected');
+                    e.target.classList.add('selected');
+                    hiddenRatingInput.value = e.target.dataset.value;
+                    hiddenRatingInput.dispatchEvent(new Event('input'));
+                }
+            });
+        };
+
+        const openConfirmationDialog = () => {
+            const formData = new FormData(reviewForm);
+            const get = (key) => formData.get(key)?.trim() || 'N/A';
+            
+            dialogContent.innerHTML = `
+                <p>App Name: <span>${get('appName')}</span></p>
+                <p>Rating: <span>${get('appRating')} / 10</span></p>
+                <p>Payment Time: <span>${get('paymentDuration')} Days</span></p>
+                <p>Total Earning: <span>₹${get('totalEarning')}</span></p>
+                <p>Submission Type: <span>${get('submitType')}</span></p>
+                <p>Referral Link: <span>${get('referralLink')}</span></p>
+                <hr>
+                <p>Naam: <span>${get('fullName')}</span></p>
+                <p>Email: <span>${get('email')}</span></p>
+                <p>Feedback: <span>${get('feedback')}</span></p>
+            `;
+            confirmationDialog.classList.add('active');
+        };
+        
+        const closeDialog = () => confirmationDialog.classList.remove('active');
+
+        const validateForm = () => {
+            let isFormValid = true;
+            let firstInvalidField = null;
+
+            allRequiredInputs.forEach(input => {
+                const formGroup = input.closest('.form-group');
+                let isValid = true;
+                const errorMsg = formGroup.querySelector('.validation-message');
+                
+                if (errorMsg) errorMsg.textContent = "Required";
+
+                if (input.type === 'radio') {
+                    isValid = formGroup.querySelector('input[type="radio"]:checked');
+                } else if (input.type === 'checkbox') {
+                    isValid = input.checked;
+                } else if (!input.value.trim()) {
+                    isValid = false;
+                } else if (input.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value)) {
+                    isValid = false;
+                    if (errorMsg) errorMsg.textContent = "Invalid email format";
+                } else if (input.type === 'url') {
+                    try { new URL(input.value); } catch { isValid = false; if (errorMsg) errorMsg.textContent = "Invalid URL format"; }
+                }
+                
+                if (!isValid) {
+                    isFormValid = false;
+                    formGroup.classList.add('error');
+                    errorMsg?.classList.add('show');
+                    if (!firstInvalidField) firstInvalidField = formGroup;
+                }
+            });
+
+            if (firstInvalidField) {
+                firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                showToast("Please fill all required fields correctly.");
+            }
+            return isFormValid;
+        };
+        
+        // --- Event Listeners ---
+        window.addEventListener('scroll', handleScroll);
+
+        new IntersectionObserver((entries) => {
+            footer.classList.toggle('visible', entries[0].isIntersecting);
+        }, { threshold: 0.1 }).observe(consentSection);
+
+        allRequiredInputs.forEach(input => {
+            input.addEventListener('input', () => clearError(input));
+        });
+        
+        // FIXED: Re-added event listener for consent checkboxes
+        consentCheckboxes.forEach(cb => {
+            cb.addEventListener('change', checkConsentState);
+        });
+
+        continueBtn.addEventListener('click', () => {
+            if (continueBtn.classList.contains('disabled')) {
+                 showToast("Please accept both consent options to continue.");
+                 return;
+            }
+            if (validateForm()) {
+                openConfirmationDialog();
+            }
+        });
+        
+        cancelSubmitBtn.addEventListener('click', closeDialog);
+        
+        finalSubmitBtn.addEventListener('click', () => {
+            const formData = new FormData(reviewForm);
+            const get = (key) => formData.get(key)?.trim() || 'N/A';
+            const emailBody = `
+Dear Revenue Aditya Team,
+
+Please find my app review submission below. I have attached the payment proof screenshot with this email.
+
+--- REVIEW DETAILS ---
+👤 Full Name: ${get('fullName')}
+📧 Email: ${get('email')}
+📱 App Name: ${get('appName')}
+⭐ App Rating: ${get('appRating')} / 10
+⏳ Payment Received In: ${get('paymentDuration')} Days
+💰 Total Earning: ₹${get('totalEarning')}
+📝 Submission Type: ${get('submitType')}
+🔗 Referral Link: ${get('referralLink')}
+✍️ My Experience:
+   ${get('experience').replace(/\n/g, '\n   ')}
+📌 Feedback:
+   ${get('feedback').replace(/\n/g, '\n   ')}
+------------------------
+
+Thank you for the opportunity to share my experience.
+            `;
+            const subject = `App Review Submission: ${get('appName')}`;
+            const mailtoLink = `mailto:revenueaditya@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody.trim())}`;
+            
+            window.location.href = mailtoLink;
+            
+            setTimeout(() => {
+                closeDialog();
+                reviewForm.reset();
+                ratingSelector.querySelector('.selected')?.classList.remove('selected');
+                allRequiredInputs.forEach(input => clearError(input));
+                checkConsentState(); // Reset button state after form reset
+            }, 500);
+        });
+
+        // --- Initializations ---
+        initRatingSelector();
+        checkConsentState(); // Set initial state of the continue button
+    });
+    </script>
+</body>
+</html>
